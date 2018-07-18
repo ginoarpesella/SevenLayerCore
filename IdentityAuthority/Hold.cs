@@ -17,15 +17,15 @@ namespace IdentityAuthority
             return new List<Client> {
                 new Client {
                 ClientId = "oauthClient",
-                ClientName = "Example Client Credentials Client Application",
+                ClientName = "OAuth Client Application",
                 AllowedGrantTypes = GrantTypes.ClientCredentials,
                 ClientSecrets = new List<Secret> {
                     new Secret("superSecretPassword".Sha256())},
-                AllowedScopes = new List<string> {"customAPI.read"}
+                AllowedScopes = new List<string> {"SLCore.read"}
             },
             new Client {
                 ClientId = "openIdConnectClient",
-                ClientName = "Example Implicit Client Application",
+                ClientName = "Implicit OIDC Client Application",
                 AllowedGrantTypes = GrantTypes.Implicit,
                 AllowedScopes = new List<string>
                 {
@@ -33,9 +33,9 @@ namespace IdentityAuthority
                     IdentityServerConstants.StandardScopes.Profile,
                     IdentityServerConstants.StandardScopes.Email,
                     "role",
-                    "customAPI.write"
+                    "SLCore.write"
                 },
-                RedirectUris = new List<string> { "https://localhost:44395/signin-oidc" }, 
+                RedirectUris = new List<string> { "https://localhost:44396/signin-oidc" }, 
                 PostLogoutRedirectUris = new List<string> { "https://localhost:44396" }
             }};
         }
@@ -60,32 +60,14 @@ namespace IdentityAuthority
         {
             return new List<ApiResource> {
                 new ApiResource {
-                    Name = "customAPI",
-                    DisplayName = "Custom API",
-                    Description = "Custom API Access",
+                    Name = "SLCore",
+                    DisplayName = "SLCore API",
+                    Description = "SLCore API Access",
                     UserClaims = new List<string> {"role"},
-                    ApiSecrets = new List<Secret> {new Secret("scopeSecret".Sha256())},
+                    ApiSecrets = new List<Secret> {new Secret("789f7607-9136-4254-afcd-10b2cd0c4056".Sha256())},
                     Scopes = new List<Scope> {
-                        new Scope("customAPI.read"),
-                        new Scope("customAPI.write")
-                    }
-                }
-            };
-        }
-    }
-
-    internal class Users
-    {
-        public static List<TestUser> Get()
-        {
-            return new List<TestUser> {
-                new TestUser {
-                    SubjectId = "5BE86359-073C-434B-AD2D-A3932222DABE",
-                    Username = "gino",
-                    Password = "password123",
-                    Claims = new List<Claim> {
-                        new Claim(JwtClaimTypes.Email, "gion@7layer.net"),
-                        new Claim(JwtClaimTypes.Role, "admin")
+                        new Scope("SLCore.read"),
+                        new Scope("SLCore.write")
                     }
                 }
             };
