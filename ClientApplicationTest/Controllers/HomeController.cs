@@ -9,11 +9,21 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication;
 using IdentityModel.Client;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
+using ClientApplicationTest.Services;
+using System.Net.Http;
+using Newtonsoft.Json;
 
 namespace ClientApplicationTest.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IApiHttpClient _apiHttpClient;
+
+        public HomeController(IApiHttpClient apiHttpClient)
+        {
+            _apiHttpClient = apiHttpClient;
+        }
+
         public IActionResult Index()
         {
             return View();
@@ -22,7 +32,6 @@ namespace ClientApplicationTest.Controllers
         public IActionResult About()
         {
             ViewData["Message"] = "Your application description page.";
-
             return View();
         }
 
@@ -82,11 +91,19 @@ namespace ClientApplicationTest.Controllers
         }
 
         [Authorize(Roles = "PayingUser")]
-        public IActionResult Collections()
+        public async Task<IActionResult> Collections()
         {
             UserCollectionsViewModel model = new UserCollectionsViewModel();
 
-            model.MyCollections = new List<string>() { "a", "b", "c" };
+            HttpClient httpClient = await _apiHttpClient.GetClient();
+            HttpResponseMessage response = await httpClient.GetAsync("api/collections").ConfigureAwait(false);
+
+            if(response.IsSuccessStatusCode)
+            {
+                string collection =  await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+
+                model.MyCollections = JsonConvert.DeserializeObject<List<string>>(collection);
+            }
 
             return View(model);
         }

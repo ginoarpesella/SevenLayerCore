@@ -7,7 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityAuthority", "Identi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClientApplicationTest", "ClientApplicationTest\ClientApplicationTest.csproj", "{D336008D-8896-4D64-8DDF-757D57802DB0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreServices", "CoreServices\CoreServices.csproj", "{3752B8C7-FBC2-4C83-91B8-924F8E558E52}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreServices", "CoreServices\CoreServices.csproj", "{3752B8C7-FBC2-4C83-91B8-924F8E558E52}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClientApiTest", "ClientApiTest\ClientApiTest.csproj", "{169CF0A6-64A2-4FF9-ADE3-95A77A7B3C5C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{3752B8C7-FBC2-4C83-91B8-924F8E558E52}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3752B8C7-FBC2-4C83-91B8-924F8E558E52}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3752B8C7-FBC2-4C83-91B8-924F8E558E52}.Release|Any CPU.Build.0 = Release|Any CPU
+		{169CF0A6-64A2-4FF9-ADE3-95A77A7B3C5C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{169CF0A6-64A2-4FF9-ADE3-95A77A7B3C5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{169CF0A6-64A2-4FF9-ADE3-95A77A7B3C5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{169CF0A6-64A2-4FF9-ADE3-95A77A7B3C5C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

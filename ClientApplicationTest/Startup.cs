@@ -13,6 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.IdentityModel.Tokens;
 using IdentityModel;
+using ClientApplicationTest.Services;
 
 namespace ClientApplicationTest
 {
@@ -32,6 +33,13 @@ namespace ClientApplicationTest
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // register an IHttpContextAccessor so we can access the current
+            // HttpContext in services by injecting it
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+            // our services defined in the Services folder
+            services.AddScoped<IApiHttpClient, ApiHttpClient>();
+
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
@@ -55,6 +63,7 @@ namespace ClientApplicationTest
                 oidcOptions.Scope.Add("openid"); // this is the default if not included
                 oidcOptions.Scope.Add("profile"); // also default
                 oidcOptions.Scope.Add("address"); // this is manual
+                oidcOptions.Scope.Add("clientApiTest"); // the name of our api which has been named on the IdenSer under GetApiResources and added to our OpenIdConnect Clients scopes
                 oidcOptions.Scope.Add("roles"); // when getting roles the IdenSer will return a list<role>. We map this on the line below
                 oidcOptions.ClaimActions.MapUniqueJsonKey("role", "role"); // this will map incoming 'role' claims to 'role' key
 

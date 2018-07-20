@@ -25,7 +25,8 @@ namespace IdentityAuthority
                     IdentityServerConstants.StandardScopes.Profile, // this means return all claims
                     IdentityServerConstants.StandardScopes.Email, // and receive email address
                     IdentityServerConstants.StandardScopes.Address,
-                    "roles"
+                    "roles",
+                    "clientApiTest"
                 },
                 ClientSecrets = new List<Secret>() { new Secret("oidcSecret".Sha256()) }, // this needs to be here to that the client can call the token endpoint
                 RedirectUris = new List<string> { "https://localhost:44396/signin-oidc" }, // this needs to be the web apis address
@@ -50,17 +51,7 @@ namespace IdentityAuthority
         public static IEnumerable<ApiResource> GetApiResources()
         {
             return new List<ApiResource> {
-                new ApiResource {
-                    Name = "SLCore",
-                    DisplayName = "SLCore API",
-                    Description = "SLCore API Access",
-                    UserClaims = new List<string> {"role"},
-                    ApiSecrets = new List<Secret> {new Secret("789f7607-9136-4254-afcd-10b2cd0c4056".Sha256())},
-                    Scopes = new List<Scope> {
-                        new Scope("SLCore.read"),
-                        new Scope("SLCore.write")
-                    }
-                }
+                new ApiResource("clientApiTest", "Client Api Test")
             };
         }
     }
