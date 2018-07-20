@@ -5,7 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="StartupServices\" />
+    <Compile Remove="StartupServices\**" />
+    <Content Remove="StartupServices\**" />
+    <EmbeddedResource Remove="StartupServices\**" />
+    <None Remove="StartupServices\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
@@ -17,6 +23,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="2.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="2.1.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.1.1" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.1" />
   </ItemGroup>
 
   <ItemGroup>

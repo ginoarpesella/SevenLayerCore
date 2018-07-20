@@ -1,0 +1,31 @@
+﻿@model GetUserInfoViewModel
+@{
+    ViewData["Title"] = "GetUserInfo";
+}
+
+<h2>User Info</h2>
+
+<div><b>@nameof(Model.Address)</b></div>
+<div>@Model.Address</div>
+<br />
+
+<div><b>@nameof(Model.GivenName)</b></div>
+<div>@Model.GivenName</div>
+<br />
+
+<div><b>@nameof(Model.FamilyName)</b></div>
+<div>@Model.FamilyName</div>
+<br />
+
+<div><b>@nameof(Model.Role)</b></div>
+<div>@Model.Role</div>
+<br />
+
+@if (User.IsInRole("PayingUser"))
+{
+    <div>You are a paying user and can do all of these things</div>
+}
+else
+{
+    <div>You are a freebee!</div>
+}

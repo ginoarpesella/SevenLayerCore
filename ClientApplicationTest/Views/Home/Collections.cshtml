@@ -1,0 +1,10 @@
+﻿@model UserCollectionsViewModel
+
+<h2>Your Collections</h2>
+
+<ul>
+    @foreach (var item in Model.MyCollections)
+    {
+        <li>@item</li>
+    }
+</ul>

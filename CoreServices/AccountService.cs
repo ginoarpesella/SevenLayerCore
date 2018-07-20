@@ -7,7 +7,6 @@ namespace CoreServices
     {
         public async Task<object> BuildLoginViewModelAsync(object a)
         {
-
             return await Task.Run(() => { return a; });
         }
     }

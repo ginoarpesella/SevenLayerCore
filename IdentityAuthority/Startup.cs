@@ -41,11 +41,12 @@ namespace IdentityAuthority
                 .AddInMemoryClients(Clients.Get())
                 .AddInMemoryIdentityResources(Resources.GetIdentityResources())
                 .AddInMemoryApiResources(Resources.GetApiResources())
-                .AddAspNetIdentity<IdentityUser>()
-                .AddDeveloperSigningCredential()
-                .AddOperationalStore(options =>
-                    options.ConfigureDbContext = builder =>
-                        builder.UseSqlServer(connectionString, sqlOptions => sqlOptions.MigrationsAssembly(migrationsAssembly)));
+                .AddTestUsers(TestUsers.Get())
+                .AddDeveloperSigningCredential();
+                //.AddAspNetIdentity<IdentityUser>()
+                //.AddOperationalStore(options =>
+                //    options.ConfigureDbContext = builder =>
+                //        builder.UseSqlServer(connectionString, sqlOptions => sqlOptions.MigrationsAssembly(migrationsAssembly)));
 
             #endregion
 
@@ -57,26 +58,27 @@ namespace IdentityAuthority
                 options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
                 options.ClientId = "281475367621-1i0fn8jeiurhgjm4uveg8bq4na85qbpv.apps.googleusercontent.com"; // https://console.developers.google.com go create your own
                 options.ClientSecret = "n9BtAuOOYetv6Vbh1il9BjYO";
-            })
-            .AddOpenIdConnect("oidc", "IdentityServer", options =>
-            {
-                options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
-                options.SignOutScheme = IdentityServerConstants.SignoutScheme;
-
-                options.Authority = "https://localhost:44395/";
-                options.ClientId = "implicit";
-                options.ResponseType = "id_token";
-                options.SaveTokens = true;
-                options.CallbackPath = new PathString("/signin-idsrv");
-                options.SignedOutCallbackPath = new PathString("/signout-callback-idsrv");
-                options.RemoteSignOutPath = new PathString("/signout-idsrv");
-
-                options.TokenValidationParameters = new TokenValidationParameters
-                {
-                    NameClaimType = "name",
-                    RoleClaimType = "role"
-                };
             });
+            //.AddOpenIdConnect("oidc", "IdentityServer", options =>
+            //{
+            //    options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
+            //    options.SignOutScheme = IdentityServerConstants.SignoutScheme;
+
+            //    options.Authority = "https://localhost:44395/";
+            //    options.ClientId = "implicit";
+            //    options.ResponseType = "code id_token";
+            //    options.SaveTokens = true;
+            //    options.CallbackPath = new PathString("/signin-idsrv");
+            //    options.SignedOutCallbackPath = new PathString("/signout-callback-idsrv");
+            //    options.RemoteSignOutPath = new PathString("/signout-idsrv");
+            //    options.ClientSecret = "oidcsecret";
+
+            //    options.TokenValidationParameters = new TokenValidationParameters
+            //    {
+            //        NameClaimType = "name",
+            //        RoleClaimType = "role"
+            //    };
+            //});
 
             #endregion
 
@@ -103,11 +105,6 @@ namespace IdentityAuthority
             app.UseIdentityServer();
             app.UseStaticFiles();
             app.UseMvcWithDefaultRoute();
-
-            app.Run(async (context) =>
-            {
-                await context.Response.WriteAsync("We are live!");
-            });
         }
     }
 }
